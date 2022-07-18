@@ -1,12 +1,25 @@
 # hackernews
+
 Using grapQL and gola
 
 ## Init graQL
+
 go get github.com/99designs/gqlgen
 go run github.com/99designs/gqlgen init
 go run ./server.go
 
+## Init mysql
+
+go get -u github.com/go-chi/chi/v5
+go get -u github.com/go-sql-driver/mysql
+go get github.com/golang-migrate/migrate/v4/cmd/migrate
+go build -tags 'mysql' -ldflags="-X main.Version=1.0.0" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/v4/cmd/migrate/
+migrate create -ext sql -dir mysql -seq create_users_table
+migrate create -ext sql -dir mysql -seq create_links_table
+migrate -database mysql://root:example@/hackernews -path ./mysql up
+
 ## Get data
+
 query {
 	links{
     title
@@ -35,6 +48,7 @@ curl 'http://localhost:8080/query' \
   --compressed
 
 ## Mution
+
 mutation {
   createLink(input: {title: "new link", address:"http://address.org"}){
     title,
@@ -61,3 +75,9 @@ curl 'http://localhost:8080/query' \
   -H 'sec-ch-ua-platform: "macOS"' \
   --data-raw '{"query":"mutation {\n  createLink(input: {title: \"new link\", address:\"http://address.org\"}){\n    title,\n    user{\n      name\n    }\n    address\n  }\n}","variables":null}' \
   --compressed
+
+## Doc
+
+[source](https://github.com/howtographql/graphql-golang/blob/master/graph/schema.graphqls)
+
+migrate -database mysql://root:example@/hackernews -path ./mysql up

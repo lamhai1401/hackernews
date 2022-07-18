@@ -8,4 +8,10 @@ ql:
 gen:
 	go run github.com/99designs/gqlgen generate
 
+sql:
+	docker-compose up
+
+migrate:
+	migrate -database mysql://root:example@/hackernews -path ./mysql up
+
 .PHONY: test
