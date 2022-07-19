@@ -79,5 +79,10 @@ curl 'http://localhost:8080/query' \
 ## Doc
 
 [source](https://github.com/howtographql/graphql-golang/blob/master/graph/schema.graphqls)
+[doc](https://www.howtographql.com/graphql-go/8-logged-in-user-object/)
 
 migrate -database mysql://root:example@/hackernews -path ./mysql up
+
+## Access to mysql
+
+mysql -u root -h localhost -P 3306 hackernews -p

@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/lamhai1401/hackernews/graph"
 	"github.com/lamhai1401/hackernews/graph/generated"
+	"github.com/lamhai1401/hackernews/internal/auth"
 	db "github.com/lamhai1401/hackernews/mysql"
 )
 
@@ -22,6 +23,7 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+	router.Use(auth.Middleware())
 
 	db.InitDB()
 	// defer db.CloseDB()

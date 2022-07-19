@@ -14,4 +14,7 @@ sql:
 migrate:
 	migrate -database mysql://root:example@/hackernews -path ./mysql up
 
+run:
+	go run server.go
+
 .PHONY: test
